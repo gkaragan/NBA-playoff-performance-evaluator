@@ -118,10 +118,10 @@ def diff_finder(merged_df):
     Generates `DIFF_<stat>` columns capturing changes in performance.
 
     Args:
-        diffs_merged_df (pd.DataFrame): Input DataFrame with RS and PO stat columns.
+        merged_df (pd.DataFrame): Input DataFrame with RS and PO stat columns.
 
     Returns:
-        merged_df (pd.DataFrame): Original DataFrame with difference columns added.
+        diffs_merged_df (pd.DataFrame): Original DataFrame with difference columns added.
     """
 
     # Split dataframe into PO and RS blocks
@@ -151,12 +151,12 @@ def diff_finder(merged_df):
         "DIFF_PCT_TOV"
     ] *= -1  # Keep consistency with other stats: greater diff = greater improvement
 
-    new_merged_df = pd.concat(
+    diffs_merged_df = pd.concat(
         [merged_df, diff_df.drop(columns=["PLAYER_ID", "PLAYER_NAME"])],
         axis=1,
     )
 
-    return new_merged_df
+    return diffs_merged_df
 
 
 def calculate_playoff_impact_scores(diffs_merged_df):
@@ -691,4 +691,5 @@ def plot_pts_scatter_with_wls(results_df, res, top_n=2, bottom_n=2, save_path=No
 
 
 if __name__ == "__main__":
+
     main()
